@@ -1,5 +1,7 @@
 package com.example.e_commerce_backend.domain;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -9,12 +11,12 @@ public class Order {
     private String buyerEmail;
     private double totalAmount;
     private String status;
-    private LocalTime createdAt;
+    private LocalDateTime createdAt;
     private List<OrderItem> items;
 
     public Order(){}
 
-    public Order( String buyerEmail, double totalAmount, String status, LocalTime createdAt) {
+    public Order( String buyerEmail, double totalAmount, String status, LocalDateTime createdAt) {
 
         this.buyerEmail = buyerEmail;
         this.totalAmount = totalAmount;
@@ -63,11 +65,11 @@ public class Order {
         this.status = status;
     }
 
-    public LocalTime getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalTime createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

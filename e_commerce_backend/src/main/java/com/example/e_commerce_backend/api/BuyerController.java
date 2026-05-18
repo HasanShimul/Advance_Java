@@ -1,8 +1,7 @@
 package com.example.e_commerce_backend.api;
 
-import com.example.e_commerce_backend.domain.Buyer;
-import com.example.e_commerce_backend.domain.BuyerLogin;
-import com.example.e_commerce_backend.domain.Order;
+import com.example.e_commerce_backend.domain.*;
+import com.example.e_commerce_backend.repository.ProductRepository;
 import com.example.e_commerce_backend.service.BuyerService;
 import com.example.e_commerce_backend.utility.JwtUtil;
 import jakarta.validation.Valid;
@@ -20,6 +19,8 @@ public class BuyerController {
     private final BuyerService buyerservice;
     @Autowired
     JwtUtil jwtutil;
+    @Autowired
+    ProductRepository productrepository;
 
     public BuyerController(BuyerService buyerservice){
         this.buyerservice = buyerservice;
@@ -60,12 +61,25 @@ public class BuyerController {
         }
         String token =  authheader.substring(7);
         if (jwtutil.checkTokenValid(token)){
-            return buyerservice.order(order);
+            Order savedorder =  buyerservice.order(order);
+            StringBuilder message = new StringBuilder();
+            message.append("Order successful.");
+            for(OrderItem items : savedorder.getItems()){
+                Product product = productrepository.findById(items.getProductId());
+                    message.append("Produc:");
+                    message.append(product.getProductName());
+                    message.append(", Quantity:");
+                    message.append(items.getQuantity());
+                    message.append(", Total: ");
+                    message.append(product.getProductPrice() * items.getQuantity());
+                    message.append("\n");
+            }
+
+            message.append("Total Amount: ").append(savedorder.getTotalAmount());
+    return message.toString();
         }else {
             return "Invalid token.";
         }
-
-
 
     }
 }

@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Service
@@ -81,7 +83,7 @@ public class BuyerService {
         }
         order.setTotalAmount(total);
         order.setStatus("CREATED");
-        order.setCreatedAt(LocalTime.now());
+        order.setCreatedAt(LocalDateTime.now());
  return orderrepository.saveOrder(order);
 
      }

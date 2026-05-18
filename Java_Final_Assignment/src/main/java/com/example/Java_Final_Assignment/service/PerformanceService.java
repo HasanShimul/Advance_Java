@@ -29,14 +29,12 @@ public class PerformanceService {
             throw new RuntimeException("Employee not found");
         }
 
-        // VALIDATION
         validate(req);
 
         int total = req.taskCompletion + req.attendance + req.teamCollaboration +
                 req.problemSolving + req.communication +
                 req.leadership + req.clientSatisfaction;
 
-        // CATEGORY
         String category;
         double percentage;
 
@@ -57,7 +55,6 @@ public class PerformanceService {
         double bonus = employee.baseSalary * percentage / 100;
         double totalComp = employee.baseSalary + bonus;
 
-        // SAVE
         performanceRepo.save(req, total);
         bonusRepo.save(req.employeeId, req.reviewYear, total, category, percentage, bonus, totalComp);
 

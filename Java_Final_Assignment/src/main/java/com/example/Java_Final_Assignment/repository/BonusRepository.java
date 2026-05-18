@@ -23,15 +23,15 @@ public class BonusRepository {
         (:eid, :year, :score, :cat, :per, :bonus, :total)
         """;
 
-        MapSqlParameterSource p = new MapSqlParameterSource();
-        p.addValue("eid", eid);
-        p.addValue("year", year);
-        p.addValue("score", score);
-        p.addValue("cat", category);
-        p.addValue("per", percent);
-        p.addValue("bonus", bonus);
-        p.addValue("total", total);
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("eid", eid);
+        params.addValue("year", year);
+        params.addValue("score", score);
+        params.addValue("cat", category);
+        params.addValue("per", percent);
+        params.addValue("bonus", bonus);
+        params.addValue("total", total);
 
-        jdbc.update(sql, p);
+        jdbc.update(sql, params);
     }
 }
